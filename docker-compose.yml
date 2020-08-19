@@ -1,0 +1,39 @@
+version: '3.6'
+services: 
+  postgres:
+    image: postgres:latest
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "3"
+        max-size: "5m"
+    env_file:
+      - .env
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - ./:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "1"
+        max-size: "5m"
+    env_file:
+      - .env
+    ports: 
+        - "16543:80"
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin4/storage/bkp
+    depends_on: 
+        - postgres
+    networks:
+      ecs-local-network: null
+volumes:
+  postgres_data:
+networks:
+  ecs-local-network:
+    external: true
