@@ -7,15 +7,17 @@ PgAdmin4 and ecs-local-network. It was based on [this](https://github.com/mrts/d
 
 ### Env
 
-Rename the file `.env-example` to `.env` and change the values for your case
+Rename the file `.env-example` to `.env` and change the values for your case.
 
 ### Fire up
-To build and run the image just execute
+To build and run the image just execute:
 ```bash
 docker-compose up
 ```
-
-### Fire up in background
+If you want to run them in background just add the --detach flag
+```bash
+docker-compose up -d
+```
 
 ### ECS Local Network (Or other network)
 
