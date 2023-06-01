@@ -19,6 +19,7 @@ services:
       ecs-local-network: null
   pgadmin:
     image: dpage/pgadmin4
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -30,6 +31,24 @@ services:
         - "16543:80"
     volumes:
       - ./pgadmin_data:/var/lib/pgadmin4/storage/bkp
+    depends_on: 
+        - postgres
+    networks:
+      ecs-local-network: null
+  metabase:
+    image: metabase/metabase
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "1"
+        max-size: "5m"
+    env_file:
+      - .env
+    ports: 
+        - "3000:3000"
+    volumes:
+      - ./metabase_data:/metabase-data
     depends_on: 
         - postgres
     networks:

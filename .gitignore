@@ -1,2 +1,3 @@
 *.env
 pgadmin_data/
+metabase_data/
